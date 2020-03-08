@@ -1,0 +1,92 @@
+# modules/your-module/config/routes.yml
+demo:
+    path: pp_miniblog/demo
+    methods: [GET]
+    defaults:
+      _controller: 'PpMiniblog\Controller\DemoController::demoAction'
+      _legacy_controller: 'PpMiniblogDemoController'
+      _legacy_link: 'PpMiniblogDemoController'
+
+BlogCategoryIndex:
+    path: pp_miniblog/blog/category
+    methods: [GET]
+    defaults:
+      _controller: 'PpMiniblog\Controller\CategoryController::indexCategory'
+      _legacy_controller: 'PpMiniblogCategoryController'
+      _legacy_link: 'PpMiniblogCategoryController'
+
+BlogCategoryAdd:
+    path: pp_miniblog/blog/category/add
+    methods: [POST]
+    defaults:
+      _controller: 'PpMiniblog\Controller\CategoryController::addCategory'
+      _legacy_controller: 'PpMiniblogCategoryController'
+      _legacy_link: 'PpMiniblogCategoryController:add'  
+
+BlogCategoryEdit:
+    path: pp_miniblog/blog/category/edit
+    methods: [POST]
+    defaults:
+      _controller: 'PpMiniblog\Controller\CategoryController::editCategory'
+      _legacy_controller: 'PpMiniblogCategoryController'
+      _legacy_link: 'PpMiniblogCategoryController:edit' 
+
+
+BlogCategoryDelete:
+    path: pp_miniblog/blog/category/delete
+    methods: [POST]
+    defaults:
+      _controller: 'PpMiniblog\Controller\CategoryController::deleteCategory'
+      _legacy_controller: 'PpMiniblogCategoryController'
+      _legacy_link: 'PpMiniblogCategoryController:delete' 
+
+
+BlogCategoryButtonActive:
+    path: pp_miniblog/blog/category/button/active
+    methods: [POST]
+    defaults:
+      _controller: 'PpMiniblog\Controller\CategoryController::buttonActive'
+      _legacy_controller: 'PpMiniblogCategoryController'
+      _legacy_link: 'PpMiniblogCategoryController:form_link_button_active'
+
+
+
+BlogArticleIndex:
+    path: pp_miniblog/blog/article
+    methods: [GET]
+    defaults:
+      _controller: 'PpMiniblog\Controller\ArticleController::indexArticle'
+      _legacy_controller: 'PpMiniblogArticleController'
+      _legacy_link: 'PpMiniblogArticleController'
+
+BlogArticleAdd:
+    path: pp_miniblog/blog/article/add
+    methods: [POST]
+    defaults:
+      _controller: 'PpMiniblog\Controller\ArticleController::addArticle'
+      _legacy_controller: 'PpMiniblogArticleController'
+      _legacy_link: 'PpMiniblogArticleController:add'
+
+BlogArticleEdit:
+    path: pp_miniblog/blog/article/edit
+    methods: [POST]
+    defaults:
+      _controller: 'PpMiniblog\Controller\ArticleController::editArticle'
+      _legacy_controller: 'PpMiniblogArticleController'
+      _legacy_link: 'PpMiniblogArticleController:edit'
+
+BlogArticleDelete:
+    path: pp_miniblog/blog/article/delete
+    methods: [POST]
+    defaults:
+      _controller: 'PpMiniblog\Controller\ArticleController::deleteArticle'
+      _legacy_controller: 'PpMiniblogArticleController'
+      _legacy_link: 'PpMiniblogArticleController:delete'
+
+BlogArticleButtonActive:
+    path: pp_miniblog/blog/article/button/active
+    methods: [POST]
+    defaults:
+      _controller: 'PpMiniblog\Controller\ArticleController::buttonActive'
+      _legacy_controller: 'PpMiniblogArticleController'
+      _legacy_link: 'PpMiniblogArticleControllerr:form_link_button_active'

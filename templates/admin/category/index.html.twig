@@ -1,0 +1,105 @@
+
+{% extends '@PrestaShop/Admin/layout.html.twig' %}
+
+    {% block content %}
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  {{ 'Add Category'|trans({}) }}
+</button>
+<!-- Modal Start-->
+<form action="{{ form_link_add }}" method="POST">   
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+
+        <fieldset class="form-group">
+        <label class="form-control-label" for="exampleInput1">{{ 'Name of category'|trans({}) }}</label>
+        <input type="text" class="form-control" name="category_name" ></input>
+        </fieldset>
+
+        <fieldset class="form-group">
+        <label class="form-control-label" for="exampleInput1">{{ 'Slug of category'|trans({}) }}</label>
+        <input type="text" class="form-control" name="category_slug" ></input>
+        </fieldset>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-tertiary-outline btn-lg" data-dismiss="modal">{{ 'Close'|trans({}) }}</button>
+        <button type="submit" class="btn btn-primary btn-lg">{{ 'Save'|trans({}) }}</button>
+      </div>
+    </div>
+  </div>
+</div> 
+</form>
+<!-- Modal End-->
+<!-- Table Start -->
+            <table class="table">
+            <thead>
+                <tr>
+                <th>#</th>
+                <th>{{ 'Name'|trans({}) }}</th>
+                <th>{{ 'Slug'|trans({}) }}</th>
+                <th>{{ 'Active'|trans({}) }}</th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categorys %}
+                    <tr>
+                    <th scope="row">{{ category.id_category }}</th>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.slug }}</td>
+                    <td>
+                        {% if category.active == 1 %}
+                        <form action="{{ form_link_button_active }}" method="POST">
+                            <input type="hidden" name="id_category" value="{{ category.id_category }}"/> 
+                            <input type="hidden" name="button_active" value="0"/> 
+                            <button type="submit" class="btn btn-success">
+                                <i class="material-icons action-enabled ">check</i>
+                            </button>
+
+                        </form>
+                        {% else %}
+                        <form action="{{ form_link_button_active }}" method="POST">
+                        <input type="hidden" name="id_category" value="{{ category.id_category }}"/> 
+                            <input type="hidden" name="button_active" value="1"/>
+                            <button type="submit" class="btn btn-danger">
+                            <i class="material-icons action-disabled">clear</i>
+                            </button>
+                        </form>
+                        {% endif %}
+                    </td>
+                    <td>
+
+                        <form action="{{ form_link_delete }}" method="POST">
+                            <input type="hidden" name="id_category" value="{{ category.id_category }}"/>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                        </form>
+                    </td>
+                    <td>   
+                        <form action="{{ form_link_edit }}" method="POST">
+                            <input type="hidden" name="id_category" value="{{ category.id_category }}"/>
+                                <button type="submit" class="btn btn-warning">
+                                        <i class="material-icons">mode_edit</i>
+                                </button>
+                        </form>
+
+                    </td>
+                    </tr>
+                {% endfor %}
+                
+            </tbody>
+            </table> 
+<!-- Table End -->
+                 
+    {% endblock %}

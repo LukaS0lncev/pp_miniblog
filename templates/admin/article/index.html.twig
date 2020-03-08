@@ -1,0 +1,158 @@
+
+{% extends '@PrestaShop/Admin/layout.html.twig' %}
+
+    {% block content %}
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  {{ 'Add article'|trans({}) }}
+</button>
+<!-- Modal Start-->
+<form action="{{ form_link_add }}" method="POST">   
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+
+        <fieldset class="form-group">
+        <label class="form-control-label" for="exampleInput1">{{ 'Title of article'|trans({}) }}</label>
+        <input type="text" class="form-control" name="article_title" ></input>
+        </fieldset>
+
+        <fieldset class="form-group">
+        <label class="form-control-label" for="exampleInput1">{{ 'Slug of article'|trans({}) }}</label>
+        <input type="text" class="form-control" name="article_slug" ></input>
+        </fieldset>
+
+        <fieldset class="form-group">
+        <div class="row">
+        <div class="col-md-6">
+        <select name="article_category" data-toggle="select2">
+        <option selected>{{ 'Select a category'|trans({}) }}</option>
+        {% for category in categorys %}
+            <option value="{{ category.id_category }}">{{ category.name }}</option>
+        {% endfor %}
+        </select>
+        </div>
+        </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+        <label class="form-control-label" for="exampleInput1">{{ 'Article'|trans({}) }}</label>
+            <textarea class="form-control" name="article_article" rows="5"></textarea>
+        </fieldset>
+
+
+       <div class="wrapper">
+           <input id="pstagger-bar" type="text"/>
+       </div>
+       <hr/>
+       {{ 'Currently tagged:'|trans({}) }}
+       <div id="example1-tags">
+       </div>
+
+       <input id="article_tags" name="article_tags" type="hidden"/>
+
+       <script type="text/javascript">
+           $(document).ready(function(){
+               $('#pstagger-bar').pstagger({
+                  inputPlaceholder: 'Add tag ...',
+                  clearAllBtn: true,
+                  clearAllIconClassAdditional: 'myIconClass',
+                  onTagsChanged: onTagsChange,
+                  onResetTags: onReset,
+              });
+           });
+           function onTagsChange(tagsList) {
+               $('#example1-tags').html(tagsList.join(', '));
+               $('#article_tags').val(tagsList.join(', '));
+           }
+           function onReset() {
+               $('#example1-tags').empty();
+               $('#article_tags').empty();
+           }
+       </script>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-tertiary-outline btn-lg" data-dismiss="modal">{{ 'Close'|trans({}) }}</button>
+        <button type="submit" class="btn btn-primary btn-lg">{{ 'Save'|trans({}) }}</button>
+      </div>
+    </div>
+  </div>
+</div> 
+</form>
+<!-- Modal End-->
+<!-- Table Start -->
+            <table class="table">
+            <thead>
+                <tr>
+                <th>#</th>
+                <th>{{ 'Title'|trans({}) }}</th>
+                <th>{{ 'Slug'|trans({}) }}</th>
+                <th>{{ 'Article'|trans({}) }}</th>
+                <th>{{ 'Active'|trans({}) }}</th>
+                <th>{{ 'Category'|trans({}) }}</th>
+                <th>{{ 'Tags'|trans({}) }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                    <th scope="row">{{ article.id_article }}</th>
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.slug }}</td>
+                    <td>{{ article.article }}</td>
+                    <td>
+                        {% if article.active == 1 %}
+                        <form action="{{ form_link_button_active }}" method="POST">
+                            <input type="hidden" name="id_article" value="{{ article.id_article }}"/> 
+                            <input type="hidden" name="button_active" value="0"/> 
+                            <button type="submit" class="btn btn-success">
+                                <i class="material-icons action-enabled ">check</i>
+                            </button>
+
+                        </form>
+                        {% else %}
+                        <form action="{{ form_link_button_active }}" method="POST">
+                        <input type="hidden" name="id_article" value="{{ article.id_article }}"/> 
+                            <input type="hidden" name="button_active" value="1"/>
+                            <button type="submit" class="btn btn-danger">
+                            <i class="material-icons action-disabled">clear</i>
+                            </button>
+                        </form>
+                        {% endif %}
+                    </td>
+                    <td>{# article.category #}</td>
+                    <td>
+
+                        <form action="{{ form_link_delete }}" method="POST">
+                            <input type="hidden" name="id_article" value="{{ article.id_article }}"/>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                        </form>
+                    </td>
+                    <td>   
+                        <form action="{{ form_link_edit }}" method="POST">
+                            <input type="hidden" name="id_article" value="{{ article.id_article }}"/>
+                                <button type="submit" class="btn btn-warning">
+                                        <i class="material-icons">mode_edit</i>
+                                </button>
+                        </form>
+
+                    </td>
+                    </tr>
+                {% endfor %}
+                
+            </tbody>
+            </table> 
+<!-- Table End -->
+                 
+    {% endblock %}

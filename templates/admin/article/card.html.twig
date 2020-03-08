@@ -1,0 +1,140 @@
+
+{% extends '@PrestaShop/Admin/layout.html.twig' %}
+
+    {% block content %}
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  {{ 'Add article'|trans({}) }}
+</button>
+<!-- Modal Start-->
+<form action="{{ form_link_add }}" method="POST">   
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+
+        <fieldset class="form-group">
+        <label class="form-control-label" for="exampleInput1">{{ 'Title of article'|trans({}) }}</label>
+        <input type="text" class="form-control" name="article_title" ></input>
+        </fieldset>
+
+        <fieldset class="form-group">
+        <label class="form-control-label" for="exampleInput1">{{ 'Slug of article'|trans({}) }}</label>
+        <input type="text" class="form-control" name="article_slug" ></input>
+        </fieldset>
+
+        <fieldset class="form-group">
+        <div class="row">
+        <div class="col-md-6">
+        <select name="article_category" data-toggle="select2">
+        <option selected>{{ 'Select a category'|trans({}) }}</option>
+        {% for category in categorys %}
+            <option value="{{ category.id_category }}">{{ category.name }}</option>
+        {% endfor %}
+        </select>
+        </div>
+        </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+        <label class="form-control-label" for="exampleInput1">{{ 'Article'|trans({}) }}</label>
+            <textarea class="form-control" name="article_article" rows="5"></textarea>
+        </fieldset>
+
+
+       <div class="wrapper">
+           <input id="pstagger-bar" type="text"/>
+       </div>
+       <hr/>
+       {{ 'Currently tagged:'|trans({}) }}
+       <div id="example1-tags">
+       </div>
+
+       <input id="article_tags" name="article_tags" type="hidden"/>
+
+       <script type="text/javascript">
+           $(document).ready(function(){
+               $('#pstagger-bar').pstagger({
+                  inputPlaceholder: 'Add tag ...',
+                  clearAllBtn: true,
+                  clearAllIconClassAdditional: 'myIconClass',
+                  onTagsChanged: onTagsChange,
+                  onResetTags: onReset,
+              });
+           });
+           function onTagsChange(tagsList) {
+               $('#example1-tags').html(tagsList.join(', '));
+               $('#article_tags').val(tagsList.join(', '));
+           }
+           function onReset() {
+               $('#example1-tags').empty();
+               $('#article_tags').empty();
+           }
+       </script>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-tertiary-outline btn-lg" data-dismiss="modal">{{ 'Close'|trans({}) }}</button>
+        <button type="submit" class="btn btn-primary btn-lg">{{ 'Save'|trans({}) }}</button>
+      </div>
+    </div>
+  </div>
+</div> 
+</form>
+<!-- Modal End-->
+
+
+
+
+<div class="row">
+{% for article in articles %}
+    <div class="col-sm-3">
+        <div class="module-item-wrapper-grid" style="min-height: 200px;">
+            <div class="module-item-heading-grid" data-toggle="modal" data-target="#module-modal-read-more-webcallback">
+                <h3 class="text-ellipsis module-name-grid" data-toggle="tooltip" data-placement="top" title="" data-original-title="Call Back">
+                    {{ article.title }}
+                </h3>
+                <div class="text-ellipsis xsmall module-version-author-grid">
+                    {{ 'Category: '|trans({}) }} <td>{{ article.category }}</td>
+                </div>
+            </div>
+            <div class="module-quick-description-grid small no-padding">
+                {{ article.article }}
+                <div style="display: flex;   align-items: center; justify-content: center;">
+                <form action="{{ form_link_edit }}" method="POST">
+                                <button type="submit" class="btn btn-warning">
+                                        <i class="material-icons">mode_edit</i>
+                                </button>	&nbsp;
+                </form>
+
+                <form action="{{ form_link_delete }}" method="POST">
+                            <input type="hidden" name="id_article" value="{{ article.id_article }}"/>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="material-icons">delete</i>
+                                </button> 	&nbsp;
+                </form>
+                </div>
+                <br>
+                <div style="display: flex;   align-items: center; justify-content: center;">
+                    {{ 'Tags:'|trans({}) }} 	&nbsp;
+                    {% for tag in article.tags %}
+                    <span class="badge badge-primary">{{ tag }}</span>	&nbsp;
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %} 
+</div>
+
+
+
+                 
+    {% endblock %}
