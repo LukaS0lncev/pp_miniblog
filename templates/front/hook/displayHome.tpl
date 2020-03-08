@@ -1,21 +1,22 @@
 <div id="owl-carousel-1" class="owl-carousel">
 
 {foreach from=$articles key=k item=article}
-    <div class="carousel-mini-blog-item carousel-item">
-        <div class="module-item-wrapper-grid" style="min-height: 200px;">
+    <div class="carousel-item">
+        
             <div class="module-item-heading-grid" data-toggle="modal" data-target="#module-modal-read-more-webcallback">
                 <h3 class="text-ellipsis module-name-grid" data-toggle="tooltip" data-placement="top" title="" data-original-title="Call Back">
-                    {$article.title}
+                    {$article.title|truncate:30:"...":true} 
                 </h3>
                 <div class="text-ellipsis xsmall module-version-author-grid">
                     {l s='Category: '} <td>{$article.category}</td>
                 </div>
             </div>
+            <br>
             <div class="module-quick-description-grid small no-padding">
-                {$article.article}
+                {$article.article|truncate:40:"...":true}
 
                 <br>
-                <div style="display: flex;   align-items: center; justify-content: center;">
+                <div style="display: flex;">
                     {l s='Tags: '} 	&nbsp;
 
                     {foreach from=$article.tags key=k item=tag}
@@ -24,7 +25,7 @@
 
                 </div>
             </div>
-        </div>
+        
     </div>
 {/foreach}
 
