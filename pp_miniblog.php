@@ -23,6 +23,9 @@
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 */
+use PpMiniblog\Classes\MiniBlogArticle;
+use PpMiniblog\Classes\MiniBlogCategory;
+use PpMiniblog\Classes\MiniBlogTools;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -36,7 +39,7 @@ class Pp_miniblog extends Module
     {
         $this->name = 'pp_miniblog';
         $this->tab = 'administration';
-        $this->version = '1.0.6';
+        $this->version = '1.0.7';
         $this->author = 'LukaSolncev';
         $this->need_instance = 1;
 
@@ -330,14 +333,38 @@ class Pp_miniblog extends Module
             'id_cat' => 2
         );
         $url = $link->getModuleLink('pp_miniblog', 'front', $params);
+        $miniblog_tools = new MiniBlogTools;
+        $id_lang = Context::getContext()->language->id;
+        $id_shop = Context::getContext()->shop->id;
         //dump($url);
         //die;
+
         $this->context->smarty->assign(array(
             'articles' => $articles,
-            'link' => $link
+            'link' => $link,
+            'miniblog_tools' =>$miniblog_tools,
+            'id_lang' => $id_lang,
+            'id_shop' => $id_shop
         ));
         return $this->context->smarty->fetch(_PS_MODULE_DIR_.'pp_miniblog/templates/front/hook/displayHome.tpl');
-
-
     }
+
+    public function hookModuleRoutes($params){
+        $my_link = array(
+            'miniblog_post_rule' => array(
+                'controller' => 'post',
+
+                'rule' => 'blog' . '/{id_post}_{slug}' . '.html',
+                'keywords' => array(
+                    'id_post' => array('regexp' => '[_a-zA-Z0-9-\pL]*', 'param' => 'id_post'),
+                    'slug' => array('regexp' => '[_a-zA-Z0-9-\pL]*', 'param' => 'slug'),
+                 ),
+                 'params' => array(
+                     'fc' => 'module',
+                     'module' => 'pp_miniblog'
+                 )
+             )
+          );
+          return $my_link;
+      }
 }

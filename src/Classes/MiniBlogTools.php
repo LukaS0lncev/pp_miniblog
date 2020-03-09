@@ -108,4 +108,50 @@ class MiniBlogTools
         
         return $options['lowercase'] ? mb_strtolower($str, 'UTF-8') : $str;
     }
+
+    public static function getMiniBlogUrl()
+    {
+        $ssl_enable = \Configuration::get('PS_SSL_ENABLED');
+        $id_lang = (int) \Context::getContext()->language->id;
+        $id_shop = (int) \Context::getContext()->shop->id;
+        $rewrite_set = (int) \Configuration::get('PS_REWRITING_SETTINGS');
+        $ssl = null;
+        static $force_ssl = null;
+        if ($ssl === null) {
+            if ($force_ssl === null)
+                $force_ssl = (\Configuration::get('PS_SSL_ENABLED') && \Configuration::get('PS_SSL_ENABLED_EVERYWHERE'));
+            $ssl = $force_ssl;
+        }
+
+        if (\Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') && $id_shop !== null)
+            $shop = new \Shop($id_shop);
+        else
+            $shop = \Context::getContext()->shop;
+        $base = ($ssl == 1 && $ssl_enable == 1) ? 'https://' . $shop->domain_ssl : 'http://' . $shop->domain;
+        $langUrl = \Language::getIsoById($id_lang) . '/';
+        if ((!$rewrite_set && in_array($id_shop, array((int) \Context::getContext()->shop->id, null))) || !\Language::isMultiLanguageActivated($id_shop) || !(int) Configuration::get('PS_REWRITING_SETTINGS', null, null, $id_shop))
+            $langUrl = '';
+
+        return $base . $shop->getBaseURI() . $langUrl;
+    }
+
+    public function getPostUrl($post)
+    {
+        $url_miniblog = self::getMiniBlogUrl();
+        $params = array(
+            'id_post' => $post['id_article'],
+            'slug' => $post['slug']
+        );
+        $dispatcher = \Dispatcher::getInstance();
+        $post_create_url =  $dispatcher->createUrl(
+            'miniblog_post_rule',
+                $id_lang,
+                $params,
+                $force_routes = false,
+                $anchor = '',
+                $id_shop
+        );
+        $post_url = $url_miniblog.$post_create_url;
+        return $post_url;
+    }
 }
