@@ -31,6 +31,11 @@
  */
 $sql = array();
 
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'pp_miniblog_article`';
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'pp_miniblog_category`';
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'pp_miniblog_comment`';
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'pp_miniblog_tag`';
+
 foreach ($sql as $query) {
     if (Db::getInstance()->execute($query) == false) {
         return false;

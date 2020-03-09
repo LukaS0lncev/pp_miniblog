@@ -39,7 +39,7 @@ class Pp_miniblog extends Module
     {
         $this->name = 'pp_miniblog';
         $this->tab = 'administration';
-        $this->version = '1.0.7';
+        $this->version = '1.0.8';
         $this->author = 'LukaSolncev';
         $this->need_instance = 1;
 

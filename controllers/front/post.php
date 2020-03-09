@@ -42,9 +42,5 @@ class pp_miniblogPostModuleFrontController extends ModuleFrontController
             ));
             Tools::redirect($_SERVER['HTTP_REFERER']);
         }
-
-
-       // dump($id_post);
-       //die;
     }
 }

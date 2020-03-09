@@ -25,10 +25,42 @@
 */
 $sql = array();
 
-$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'pp_miniblog` (
-    `id_pp_miniblog` int(11) NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY  (`id_pp_miniblog`)
+$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'pp_miniblog_article` (
+    `id_article` int(11) NOT NULL AUTO_INCREMENT,
+    `title` varchar(255) NOT NULL,
+    `slug` varchar(255) NOT NULL,
+    `article` text NOT NULL,
+    `active` tinyint(1) NOT NULL,
+    `id_category` int(11) NOT NULL,
+    `tags` text NOT NULL,
+    `date_add` date NOT NULL,
+    PRIMARY KEY  (`id_article`)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
+
+
+$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'pp_miniblog_category` (
+    `id_category` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `slug` varchar(255) NOT NULL,
+    `active` tinyint(1) NOT NULL,
+    PRIMARY KEY  (`id_category`)
+) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
+
+
+$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'pp_miniblog_comment` (
+    `id_comment` int(11) NOT NULL AUTO_INCREMENT,
+    `id_article` int(11) NOT NULL,
+    `comment` text NOT NULL,
+    PRIMARY KEY  (`id_comment`)
+) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
+
+
+$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'pp_miniblog_tag` (
+    `id_tag` int(11) NOT NULL AUTO_INCREMENT,
+    `tag` varchar(255) NOT NULL,
+    PRIMARY KEY  (`id_tag`)
+) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
+
 
 foreach ($sql as $query) {
     if (Db::getInstance()->execute($query) == false) {
