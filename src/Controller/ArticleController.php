@@ -6,13 +6,15 @@ use PrestaShopBundle\Form\Admin\Type\MaterialChoiceTreeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use PpMiniblog\Classes\MiniBlogArticle;
+use PpMiniblog\Classes\MiniBlogCategory;
 
 class ArticleController extends FrameworkBundleAdminController
 {
     public function indexArticle()
     {
-        $articles = $this->getArticles();
-        $categorys = $this->getCategorys();
+        $articles = MiniBlogArticle::getArticles();
+        $categorys = MiniBlogCategory::getCategorys();
         $link = New \Link();
 
         $form_link_add =  $link->getAdminLink('PpMiniblogArticleController', true, [], ['action' => 'add']);

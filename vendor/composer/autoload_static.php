@@ -4,12 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit20f151f23a2d5f5f5451fb2fe678c9e6
+class ComposerStaticInita966e0d022d0785e36230982363f4f18
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
             'PpMiniblog\\Controller\\' => 22,
+            'PpMiniblog\\Classes\\' => 19,
         ),
     );
 
@@ -18,13 +19,17 @@ class ComposerStaticInit20f151f23a2d5f5f5451fb2fe678c9e6
         array (
             0 => __DIR__ . '/../..' . '/src/Controller',
         ),
+        'PpMiniblog\\Classes\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Classes',
+        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit20f151f23a2d5f5f5451fb2fe678c9e6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit20f151f23a2d5f5f5451fb2fe678c9e6::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita966e0d022d0785e36230982363f4f18::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita966e0d022d0785e36230982363f4f18::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

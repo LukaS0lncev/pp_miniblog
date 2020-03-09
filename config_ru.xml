@@ -2,7 +2,7 @@
 <module>
     <name>pp_miniblog</name>
     <displayName><![CDATA[Mini Blog]]></displayName>
-    <version><![CDATA[1.0.5]]></version>
+    <version><![CDATA[1.0.6]]></version>
     <description><![CDATA[Mini Blog for PrestaShop]]></description>
     <author><![CDATA[LukaSolncev]]></author>
     <tab><![CDATA[administration]]></tab>

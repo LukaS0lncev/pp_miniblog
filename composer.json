@@ -3,7 +3,8 @@
   "description": "...",
   "autoload": {
     "psr-4": {
-      "PpMiniblog\\Controller\\": "src/Controller/"
+      "PpMiniblog\\Controller\\": "src/Controller/",
+      "PpMiniblog\\Classes\\": "src/Classes/"
     }
   },
   "config": {
