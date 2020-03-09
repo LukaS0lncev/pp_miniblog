@@ -143,6 +143,8 @@ class MiniBlogTools
             'slug' => $post['slug']
         );
         $dispatcher = \Dispatcher::getInstance();
+        $id_lang = \Context::getContext()->language->id;
+        $id_shop = \Context::getContext()->shop->id;
         $post_create_url =  $dispatcher->createUrl(
             'miniblog_post_rule',
                 $id_lang,

@@ -54,4 +54,11 @@ class MiniBlogArticle
         return $article;
     }
 
+    public function getCommentsArticleById($id_article)
+    {
+        $sql_get_comments = "SELECT * FROM "._DB_PREFIX_."pp_miniblog_comment WHERE id_article = ".(int)$id_article;
+        $comments = \Db::getInstance()->executeS($sql_get_comments);
+        return $comments;
+    }
+
 }
