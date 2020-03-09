@@ -111,24 +111,6 @@ class Pp_miniblog extends Module
         
         $miniblog_tab_parent->save();
         $tab_parent_id = $miniblog_tab_parent->id;
-        
-        //Создаем дочерний Tab PpMiniblogDemoController начало
-        $tabId = (int) Tab::getIdFromClassName('PpMiniblogDemoController');
-        if (!$tabId) {
-            $tabId = null;
-        }
-
-        $tab = new Tab($tabId);
-        $tab->active = 1;
-        $tab->class_name = 'PpMiniblogDemoController';
-        $tab->name = array();
-        foreach (Language::getLanguages() as $lang) {
-            $tab->name[$lang['id_lang']] = 'Mini Blog Demo';
-        }
-        $tab->id_parent = (int) $tab_parent_id;
-        $tab->module = $this->name;
-        $tab->save();
-        //Создаем дочерний Tab PpMiniblogDemoController Конец
 
         //Создаем дочерний Tab PpMiniblogCategoryController начало
         $tabId = (int) Tab::getIdFromClassName('PpMiniblogCategoryControllerr');
@@ -172,7 +154,6 @@ class Pp_miniblog extends Module
     private function uninstallTab()
     {
         $tab_id[]  = (int) Tab::getIdFromClassName('AdminPpMiniBlog');
-        $tab_id[] = (int) Tab::getIdFromClassName('PpMiniblogDemoController');
         $tab_id[] = (int) Tab::getIdFromClassName('PpMiniblogCategoryController');
         $tab_id[] = (int) Tab::getIdFromClassName('PpMiniblogArticleController');
         if (!$tab_id) {

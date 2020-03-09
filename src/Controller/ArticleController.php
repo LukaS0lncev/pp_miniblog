@@ -44,11 +44,11 @@ class ArticleController extends FrameworkBundleAdminController
             $article = $_POST['article_article'];
             if(empty($_POST['article_slug']))
             {
-                $slug = ToolsController::getUrlSlug($_POST['article_title'], array('transliterate' => true));
+                $slug = MiniBlogTools::getUrlSlug($_POST['article_title'], array('transliterate' => true));
             }
             else
             {
-                $slug = ToolsController::getUrlSlug($_POST['article_slug'], array('transliterate' => true));
+                $slug = MiniBlogTools::getUrlSlug($_POST['article_slug'], array('transliterate' => true));
             }
 
             $id_category = $_POST['article_category'];

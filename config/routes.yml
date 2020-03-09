@@ -1,12 +1,3 @@
-# modules/your-module/config/routes.yml
-demo:
-    path: pp_miniblog/demo
-    methods: [GET]
-    defaults:
-      _controller: 'PpMiniblog\Controller\DemoController::demoAction'
-      _legacy_controller: 'PpMiniblogDemoController'
-      _legacy_link: 'PpMiniblogDemoController'
-
 BlogCategoryIndex:
     path: pp_miniblog/blog/category
     methods: [GET]

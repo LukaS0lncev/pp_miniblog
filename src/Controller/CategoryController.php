@@ -6,6 +6,9 @@ use PrestaShopBundle\Form\Admin\Type\MaterialChoiceTreeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use PpMiniblog\Classes\MiniBlogArticle;
+use PpMiniblog\Classes\MiniBlogCategory;
+use PpMiniblog\Classes\MiniBlogTools;
 
 class CategoryController extends FrameworkBundleAdminController
 {
@@ -13,8 +16,7 @@ class CategoryController extends FrameworkBundleAdminController
     {
         $db = \Db::getInstance();
         $context = \Context::getContext();
-        $sql_category = 'SELECT * FROM '._DB_PREFIX_.'pp_miniblog_category';
-        $categorys = \Db::getInstance()->ExecuteS($sql_category);
+        $categorys = MiniBlogCategory::getCategorys();
         
         $link = New \Link();
 
@@ -39,11 +41,11 @@ class CategoryController extends FrameworkBundleAdminController
             $name = $_POST['category_name'];
             if(empty($_POST['category_slug']))
             {
-                $slug = ToolsController::getUrlSlug($_POST['category_name'], array('transliterate' => true));
+                $slug = MiniBlogTools::getUrlSlug($_POST['category_name'], array('transliterate' => true));
             }
             else
             {
-                $slug = ToolsController::getUrlSlug($_POST['category_slug'], array('transliterate' => true));
+                $slug = MiniBlogTools::getUrlSlug($_POST['category_slug'], array('transliterate' => true));
             }
             
             

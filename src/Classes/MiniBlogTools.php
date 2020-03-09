@@ -1,13 +1,7 @@
 <?php
-namespace PpMiniblog\Controller;
+namespace PpMiniblog\Classes;
 
-use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
-use PrestaShopBundle\Form\Admin\Type\MaterialChoiceTreeType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-
-class ToolsController extends FrameworkBundleAdminController
+class MiniBlogTools
 {
     function getUrlSlug($str, $options = array()) 
     {
