@@ -181,7 +181,7 @@ class Pp_miniblog extends Module
 
         $this->context->smarty->assign('module_dir', $this->_path);
 
-        $output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
+        $output = $this->context->smarty->fetch(_PS_MODULE_DIR_.'pp_miniblog/views/templates/admin/configure.tpl');
 
         return $output.$this->renderForm();
     }
@@ -324,8 +324,19 @@ class Pp_miniblog extends Module
         $Article = new PpMiniblog\Controller\ArticleController;
         $articles =  $Article->getArticles();
 
-        $this->context->smarty->assign('articles', $articles);
-        return $this->context->smarty->fetch($this->local_path.'templates/front/hook/displayHome.tpl');
+        $link = new Link;
+        $params = array(
+            'id_post' => 1,
+            'id_cat' => 2
+        );
+        $url = $link->getModuleLink('pp_miniblog', 'front', $params);
+        //dump($url);
+        //die;
+        $this->context->smarty->assign(array(
+            'articles' => $articles,
+            'link' => $link
+        ));
+        return $this->context->smarty->fetch(_PS_MODULE_DIR_.'pp_miniblog/templates/front/hook/displayHome.tpl');
 
 
     }

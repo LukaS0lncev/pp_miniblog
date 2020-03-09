@@ -5,7 +5,7 @@
         
             <div class="module-item-heading-grid" data-toggle="modal" data-target="#module-modal-read-more-webcallback">
                 <h3 class="text-ellipsis module-name-grid" data-toggle="tooltip" data-placement="top" title="" data-original-title="Call Back">
-                    {$article.title|truncate:30:"...":true} 
+                    <a href="{$link->getModuleLink('pp_miniblog', 'post', ['id_post' => $article.id_article])}">{$article.title|truncate:30:"...":true}</a>
                 </h3>
                 <div class="text-ellipsis xsmall module-version-author-grid">
                     {l s='Category: '} <td>{$article.category}</td>
