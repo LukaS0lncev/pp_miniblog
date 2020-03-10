@@ -80,4 +80,4 @@ BlogArticleButtonActive:
     defaults:
       _controller: 'PpMiniblog\Controller\ArticleController::buttonActive'
       _legacy_controller: 'PpMiniblogArticleController'
-      _legacy_link: 'PpMiniblogArticleControllerr:form_link_button_active'
+      _legacy_link: 'PpMiniblogArticleController:form_link_button_active'

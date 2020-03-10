@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use PpMiniblog\Classes\MiniBlogArticle;
 use PpMiniblog\Classes\MiniBlogCategory;
+use PpMiniblog\Classes\MiniBlogTools;
 
 class ArticleController extends FrameworkBundleAdminController
 {
@@ -77,7 +78,7 @@ class ArticleController extends FrameworkBundleAdminController
 
     public function editArticle()
 	    {
-            dump('editCategory');
+            dump('editArticle');
             die;
             $id_article = $_POST['id_article'];
             \Db::getInstance()->delete('pp_miniblog_article', 'id_article = '.$id_article);

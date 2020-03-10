@@ -39,7 +39,7 @@ class Pp_miniblog extends Module
     {
         $this->name = 'pp_miniblog';
         $this->tab = 'administration';
-        $this->version = '1.0.9';
+        $this->version = '1.0.11';
         $this->author = 'LukaSolncev';
         $this->need_instance = 1;
 
@@ -64,27 +64,23 @@ class Pp_miniblog extends Module
      */
     public function install()
     {
-        Configuration::updateValue('PP_MINIBLOG_LIVE_MODE', false);
-
         include(dirname(__FILE__).'/sql/install.php');
 
         return parent::install() &&
-            $this->installTab() && 
             $this->registerHook('header') &&
             $this->registerHook('backOfficeHeader') &&
             $this->registerHook('displayBanner') &&
-            $this->registerHook('hookModuleRoutes') &&
-            $this->registerHook('hookDisplayHome');
+            $this->registerHook('moduleRoutes') &&
+            $this->registerHook('displayHome') && 
+            $this->installTab();
     }
 
     public function uninstall()
     {
-        Configuration::deleteByName('PP_MINIBLOG_LIVE_MODE');
-
         include(dirname(__FILE__).'/sql/uninstall.php');
-
+       // return parent::uninstall();
         return parent::uninstall() &&
-        $this->uninstallTab();
+        	$this->uninstallTab();
     }
 
      public function enable($force_all = false)
@@ -103,10 +99,15 @@ class Pp_miniblog extends Module
 
     private function installTab()
     {
-        //$tabIdParent = (int) Tab::getIdFromClassName('PpMiniblogDemoController');
         //Создаем Родительский Tab
         $langs = Language::getLanguages();
-        $miniblog_tab_parent = new Tab();
+
+        $tabId = (int) Tab::getIdFromClassName('AdminPpMiniBlog');
+        if (!$tabId) {
+            $tabId = null;
+        }
+
+        $miniblog_tab_parent = new Tab($tabId);
         $miniblog_tab_parent->class_name = "AdminPpMiniBlog";
         $miniblog_tab_parent->module = "";
         $miniblog_tab_parent->id_parent = 0;
@@ -118,7 +119,7 @@ class Pp_miniblog extends Module
         $tab_parent_id = $miniblog_tab_parent->id;
 
         //Создаем дочерний Tab PpMiniblogCategoryController начало
-        $tabId = (int) Tab::getIdFromClassName('PpMiniblogCategoryControllerr');
+        $tabId = (int) Tab::getIdFromClassName('PpMiniblogCategoryController');
         if (!$tabId) {
             $tabId = null;
         }
@@ -136,7 +137,7 @@ class Pp_miniblog extends Module
         //Создаем дочерний Tab PpMiniblogCategoryController Конец
 
         //Создаем дочерний Tab PpMiniblogCategoryController начало
-                $tabId = (int) Tab::getIdFromClassName('PpMiniblogArticleControllerr');
+                $tabId = (int) Tab::getIdFromClassName('PpMiniblogArticleController');
                 if (!$tabId) {
                     $tabId = null;
                 }
